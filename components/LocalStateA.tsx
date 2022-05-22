@@ -5,10 +5,13 @@ import Link from 'next/link'
 
 export const LocalStateA: VFC = () => {
   const [input, setInput] = useState('')
+
+  // リアクティブ変数が更新された場合、リアクティブ変数を読み取っているコンポーネントは再レンダリングされる
   const todos = useReactiveVar(todoVar)
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    // todoVar() → 変数を読み取る(再レンダリングはされない)
     todoVar([...todoVar(), { title: input }])
     setInput('')
   }
