@@ -7,7 +7,12 @@ import { Layout } from '../components/Layout'
 
 const FetchMain: VFC = () => {
   // 型名はqueriesで命名した 関数名 + Query
-  const { data, error } = useQuery<GetUsersQuery>(getUsers)
+  const { data, error } = useQuery<GetUsersQuery>(getUsers, {
+    // fetchPolicy: 'network-only', // useQueryが実行されるたびにhasuraから取得する
+    fetchPolicy: 'cache-and-network', // network-only + 通信の最中はcacheを表示しておく
+    // fetchPolicy: 'cache-first', // :default: 一度取得したデータがキャッシュに存在する場合はキャッシュから読み込む
+    // fetchPolicy: 'no-cache', // キャッシュを保存しない
+  })
 
   if (error)
     return (
