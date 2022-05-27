@@ -19,31 +19,35 @@ export const useCreateForm = () => {
     },
   })
 
-  const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleTextChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value)
-  }
+  }, [])
 
-  const usernameChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const usernameChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value)
-  }
+  }, [])
 
   const printMsg = useCallback(() => {
     console.log('Hello')
   }, [])
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    try {
-      await insert_users_one({
-        variables: {
-          name: username,
-        },
-      })
-    } catch (err) {
-      alert(err.message)
-    }
-    setUsername('')
-  }
+  const handleSubmit = useCallback(
+    async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      try {
+        await insert_users_one({
+          variables: {
+            name: username,
+          },
+        })
+      } catch (err) {
+        alert(err.message)
+      }
+      setUsername('')
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [username]
+  )
 
   return {
     text,
