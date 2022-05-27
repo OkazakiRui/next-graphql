@@ -1,7 +1,7 @@
 import { VFC, memo, Dispatch, SetStateAction } from 'react'
 import { Users, DeleteUserMutationFn } from '../types/generated/graphql'
 
-interface Props {
+type Props = {
   user: {
     __typename?: 'users'
   } & Pick<Users, 'id' | 'name' | 'created_at'>
@@ -15,7 +15,6 @@ interface Props {
 }
 
 const UserItem: VFC<Props> = ({ user, delete_users_by_pk, setEditedUser }) => {
-  //console.log('UserItem rendered')
   const setUserHandler = () => setEditedUser(user)
 
   const deleteUserHandler = async () =>
